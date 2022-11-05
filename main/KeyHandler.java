@@ -3,6 +3,7 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+// key event listener. We could use keyAdapter instead (see Java Docs on how to implement adapter. although, this one seems simpler)
 public class KeyHandler implements KeyListener {
 
 	public boolean up = false;
@@ -10,15 +11,26 @@ public class KeyHandler implements KeyListener {
 	public boolean left = false;
 	public boolean right = false;
 	public boolean shooting = false;
+	public boolean paused = false;
 
+	public boolean isPaused = false;
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		// pause key code
 		handleKeys(e.getKeyCode(), true);
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			if(!paused) {
+				paused = true;
+			} else {
+				paused = false;
+			}
+		}
 		
 	}
 
@@ -43,6 +55,15 @@ public class KeyHandler implements KeyListener {
 		if (code == KeyEvent.VK_SPACE) {
 			shooting = isPressed;
 		}
+
+
+
+	}
+	public boolean isPaused() {
+		return paused;
+	}
+	public void setPaused(boolean b) {
+		paused = b;
 	}
 
 }
